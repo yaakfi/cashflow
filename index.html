@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CashFlow Analyzer — Analisis Arus Kas Perusahaan</title>
+    <meta name="description" content="Aplikasi analisis cash flow untuk membantu investor pemula menganalisis kondisi likuiditas dan kesehatan keuangan perusahaan">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== LANGUAGE TOGGLE (FLOATING) ===== -->
+    <button id="lang-toggle" class="lang-toggle" onclick="toggleLanguage()" title="Switch Language">
+        <span class="lang-flag">🇮🇩</span>
+        <span class="lang-label">ID</span>
+        <svg class="lang-swap-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 3 21 3 21 8"></polyline>
+            <line x1="4" y1="20" x2="21" y2="3"></line>
+            <polyline points="21 16 21 21 16 21"></polyline>
+            <line x1="15" y1="15" x2="21" y2="21"></line>
+        </svg>
+    </button>
+
+    <!-- ============ PAGE 1: LANDING ============ -->
+    <div id="page-landing" class="page active">
+
+        <!-- HEADER -->
+        <header id="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <span class="logo-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <rect width="40" height="40" rx="10" fill="rgba(255,255,255,0.15)"/>
+                                <path d="M12 28V18L16 22L20 14L24 20L28 12V28H12Z" fill="rgba(255,255,255,0.9)" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+                                <circle cx="28" cy="12" r="2.5" fill="#67e8f9"/>
+                            </svg>
+                        </span>
+                        <h1>CashFlow<span class="accent">Analyzer</span></h1>
+                    </div>
+                    <p class="header-desc" data-i18n="headerDesc">Aplikasi analisis cash flow yang kami kembangkan dirancang untuk membantu investor pemula dalam menganalisis kondisi likuiditas dan kesehatan keuangan suatu perusahaan sebelum melakukan investasi. Melalui aplikasi ini, pengguna dapat memperoleh informasi mengenai arus kas perusahaan secara lebih mudah, cepat, dan terstruktur sehingga dapat membantu dalam pengambilan keputusan investasi yang lebih tepat.</p>
+                    <a href="#" id="btn-start-hero" class="btn btn-glow"><span data-i18n="btnStartHero">Mulai Analisis</span> <span class="arrow">→</span></a>
+                </div>
+            </div>
+            <div class="header-wave">
+                <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                    <path d="M0,60 C360,120 720,0 1440,60 L1440,100 L0,100 Z" fill="var(--bg)"/>
+                </svg>
+            </div>
+        </header>
+
+        <main class="container">
+            <!-- TAGLINE SECTION -->
+            <section id="tagline-section" class="card tagline-card">
+                <div class="tagline-badge" data-i18n="taglineBadge">📌 Fitur Utama</div>
+                <h2 data-i18n="taglineTitle">Kenali Kondisi Likuiditas Perusahaan</h2>
+                <p data-i18n="taglineDesc">Aplikasi membantu pengguna memahami kemampuan perusahaan dalam memenuhi kewajiban jangka pendek melalui analisis cash flow dan rasio likuiditas. Dengan begitu, investor dapat mengetahui apakah perusahaan memiliki kondisi keuangan yang stabil atau berisiko.</p>
+            </section>
+
+            <!-- FEATURE CARDS -->
+            <section id="features-section" class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap">
+                        <span class="feature-icon">📊</span>
+                    </div>
+                    <h3 data-i18n="feature1Title">Visualisasi Arus Kas Perusahaan</h3>
+                    <p data-i18n="feature1Desc">Sistem menyediakan tampilan data arus kas dalam bentuk grafik dan laporan yang mudah dipahami. Pengguna dapat melihat pergerakan kas masuk dan kas keluar perusahaan dalam periode tertentu sehingga analisis keuangan menjadi lebih jelas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrap">
+                        <span class="feature-icon">🎯</span>
+                    </div>
+                    <h3 data-i18n="feature2Title">Analisis untuk Mendukung Keputusan Investasi</h3>
+                    <p data-i18n="feature2Desc">Fitur analisis pada aplikasi membantu investor pemula dalam menilai performa keuangan perusahaan berdasarkan data cash flow, tren keuangan, dan indikator likuiditas. Hal ini membantu pengguna dalam membandingkan beberapa perusahaan sebelum menentukan pilihan investasi.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrap">
+                        <span class="feature-icon">⚡</span>
+                    </div>
+                    <h3 data-i18n="feature3Title">Akses Informasi Secara Praktis</h3>
+                    <p data-i18n="feature3Desc">Aplikasi dapat diakses dengan mudah kapan saja sehingga pengguna dapat melakukan pengecekan kondisi perusahaan secara fleksibel. Dengan informasi yang tersaji secara real time dan terorganisir, investor pemula dapat lebih percaya diri dalam mengambil keputusan investasi berdasarkan data yang akurat.</p>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <section class="cta-section">
+                <button id="btn-start" class="btn btn-primary btn-large" data-i18n="btnStartMain">🚀 Mulai Analisis Sekarang</button>
+            </section>
+
+            <!-- KELOMPOK -->
+            <section class="card team-card">
+                <h2 data-i18n="teamTitle">👥 Kelompok 4</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <span class="member-icon">👩‍🎓</span>
+                        <strong>Ryta Zahwa Nabila</strong>
+                        <span>2402030123</span>
+                    </div>
+                    <div class="team-member">
+                        <span class="member-icon">👩‍🎓</span>
+                        <strong>Mahya Nur Izza</strong>
+                        <span>2402030135</span>
+                    </div>
+                    <div class="team-member">
+                        <span class="member-icon">👩‍🎓</span>
+                        <strong>Diva Vivi Faresti</strong>
+                        <span>2402030140</span>
+                    </div>
+                </div>
+                <p class="team-course" data-i18n="teamCourse">Mata Kuliah: Analisis &amp; Desain Sistem | Semester 4 - Akuntansi</p>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p data-i18n="footerText">© 2026 CashFlow Analyzer — Kelompok 4 | Analisis &amp; Desain Sistem</p>
+                <p class="ref-text" data-i18n="footerRef">Referensi: PSAK No. 2 (IAI, 2015) • Romney &amp; Steinbart (2018) • Kieso et al. (2019)</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ============ PAGE 2: ANALISIS ============ -->
+    <div id="page-analysis" class="page">
+
+        <!-- MINI HEADER -->
+        <header id="header-mini" class="header-mini">
+            <div class="container">
+                <div class="header-mini-content">
+                    <button id="btn-back" class="btn btn-back" data-i18n="btnBack">← Kembali</button>
+                    <div class="logo logo-small">
+                        <span class="logo-icon-small">
+                            <svg width="24" height="24" viewBox="0 0 40 40" fill="none">
+                                <rect width="40" height="40" rx="10" fill="rgba(255,255,255,0.15)"/>
+                                <path d="M12 28V18L16 22L20 14L24 20L28 12V28H12Z" fill="rgba(255,255,255,0.9)" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+                                <circle cx="28" cy="12" r="2.5" fill="#67e8f9"/>
+                            </svg>
+                        </span>
+                        <span class="logo-text-small">CashFlow<span class="accent">Analyzer</span></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <!-- SECTION TITLE -->
+            <section class="page-title-section">
+                <h2 class="page-title" data-i18n="pageAnalysisTitle">⚙️ Cara Kerja Aplikasi</h2>
+                <p class="page-subtitle" data-i18n="pageAnalysisSubtitle">Masukkan data laporan arus kas perusahaan, lalu sistem akan menghitung rasio dan memberikan interpretasi otomatis.</p>
+            </section>
+
+            <!-- INPUT SECTION -->
+            <section id="input-section" class="card">
+                <h2 data-i18n="inputTitle">📥 Input Data Keuangan</h2>
+                <p class="section-desc" data-i18n="inputDesc">Masukkan data laporan arus kas perusahaan (dalam jutaan Rupiah)</p>
+                <form id="cashflow-form">
+                    <!-- Nama Perusahaan -->
+                    <div class="form-group form-group-full">
+                        <label for="company-name" data-i18n="labelCompanyName">Nama Perusahaan</label>
+                        <input type="text" id="company-name" data-i18n-placeholder="placeholderCompanyName" placeholder="Contoh: PT Indofood Sukses Makmur Tbk" required>
+                        <small data-i18n="helpCompanyName">Masukkan nama perusahaan yang akan dianalisis</small>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="ocf" data-i18n="labelOCF">Arus Kas Operasi (OCF)</label>
+                            <input type="number" id="ocf" data-i18n-placeholder="placeholderOCF" placeholder="Contoh: 17507956" required>
+                            <small data-i18n="helpOCF">Kas dari aktivitas utama perusahaan</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="icf" data-i18n="labelICF">Arus Kas Investasi (ICF)</label>
+                            <input type="number" id="icf" data-i18n-placeholder="placeholderICF" placeholder="Contoh: -6994964" required>
+                            <small data-i18n="helpICF">Kas untuk aktivitas investasi</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="fcf-input" data-i18n="labelFCF">Arus Kas Pendanaan (FCF)</label>
+                            <input type="number" id="fcf-input" data-i18n-placeholder="placeholderFCF" placeholder="Contoh: -680208" required>
+                            <small data-i18n="helpFCF">Kas dari aktivitas pendanaan/hutang</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="cl" data-i18n="labelCL">Kewajiban Lancar</label>
+                            <input type="number" id="cl" data-i18n-placeholder="placeholderCL" placeholder="Contoh: 37094061" required>
+                            <small data-i18n="helpCL">Total hutang jangka pendek</small>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" id="btn-analyze" class="btn btn-primary" data-i18n="btnAnalyze">🔍 Analisis Sekarang</button>
+                        <button type="button" id="btn-reset" class="btn btn-secondary" data-i18n="btnReset">🔄 Reset</button>
+                        <button type="button" id="btn-example" class="btn btn-outline" data-i18n="btnExample">📝 Data Contoh (INDF 2024)</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- RESULTS SECTION (hidden by default) -->
+            <section id="results-section" class="hidden">
+                <!-- Company Name Banner -->
+                <div class="card company-banner" id="company-banner">
+                    <h2 id="company-display" data-i18n="resultTitle">📋 Hasil Analisis</h2>
+                </div>
+
+                <!-- Rasio Keuangan -->
+                <div class="card">
+                    <h2 data-i18n="ratioTitle">📈 Hasil Perhitungan Rasio</h2>
+                    <div class="ratio-grid">
+                        <div class="ratio-card" id="fcf-card">
+                            <h3>Free Cash Flow</h3>
+                            <div class="ratio-value" id="fcf-value">-</div>
+                            <p class="ratio-formula" data-i18n="ratioFormulaFCF">OCF - |ICF|</p>
+                            <p class="ratio-interpret" id="fcf-interpret"></p>
+                        </div>
+                        <div class="ratio-card" id="cfr-card">
+                            <h3>Cash Flow Ratio</h3>
+                            <div class="ratio-value" id="cfr-value">-</div>
+                            <p class="ratio-formula" data-i18n="ratioFormulaCFR">OCF / Kewajiban Lancar</p>
+                            <p class="ratio-interpret" id="cfr-interpret"></p>
+                        </div>
+                        <div class="ratio-card" id="cfa-card">
+                            <h3>Cash Flow Adequacy</h3>
+                            <div class="ratio-value" id="cfa-value">-</div>
+                            <p class="ratio-formula" data-i18n="ratioFormulaCFA">(OCF + ICF + FCF) / Kewajiban Lancar</p>
+                            <p class="ratio-interpret" id="cfa-interpret"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pola Arus Kas -->
+                <div class="card">
+                    <h2 data-i18n="patternTitle">🔎 Analisis Pola Arus Kas</h2>
+                    <div class="pattern-grid">
+                        <div class="pattern-item" id="ocf-pattern">
+                            <h3 data-i18n="patternOCFTitle">Operasi (OCF)</h3>
+                            <div class="pattern-sign" id="ocf-sign">-</div>
+                            <p id="ocf-interpret"></p>
+                        </div>
+                        <div class="pattern-item" id="icf-pattern">
+                            <h3 data-i18n="patternICFTitle">Investasi (ICF)</h3>
+                            <div class="pattern-sign" id="icf-sign">-</div>
+                            <p id="icf-interpret"></p>
+                        </div>
+                        <div class="pattern-item" id="fcf-pattern">
+                            <h3 data-i18n="patternFCFTitle">Pendanaan (FCF)</h3>
+                            <div class="pattern-sign" id="fcf-sign">-</div>
+                            <p id="fcf-interpret"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interpretasi Pola (BARU - paragraf panjang) -->
+                <div class="card" id="pattern-interpretation-card">
+                    <h2 data-i18n="interpretationTitle">📝 Interpretasi Pola Arus Kas</h2>
+                    <div class="interpretation-box" id="pattern-interpretation">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Status Perusahaan -->
+                <div class="card" id="status-card">
+                    <h2 data-i18n="statusTitle">🏢 Status Kondisi Perusahaan</h2>
+                    <div class="status-box" id="status-box">
+                        <div class="status-badge" id="status-badge">-</div>
+                        <p class="status-text" id="status-text"></p>
+                    </div>
+                    <div id="insight-list" class="insight-list"></div>
+                </div>
+
+                <!-- Chart -->
+                <div class="card">
+                    <h2 data-i18n="chartTitle">📊 Visualisasi Arus Kas</h2>
+                    <div class="chart-container">
+                        <canvas id="cashflow-chart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p data-i18n="footerText">© 2026 CashFlow Analyzer — Kelompok 4 | Analisis &amp; Desain Sistem</p>
+                <p class="ref-text" data-i18n="footerRef">Referensi: PSAK No. 2 (IAI, 2015) • Romney &amp; Steinbart (2018) • Kieso et al. (2019)</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
