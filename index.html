@@ -139,6 +139,22 @@
                 <p id="history-empty" class="history-empty" data-i18n="historyEmpty">Belum ada riwayat analisis.</p>
             </section>
 
+            <!-- Link Pencarian Eksternal -->
+            <div class="card print-hide" id="links-card">
+                <h2 data-i18n="beiTitle">🔍 Cari Laporan Keuangan</h2>
+                <p class="section-desc" data-i18n="beiDesc">Gunakan tautan di bawah ini untuk mencari dokumen laporan tahunan (Annual Report) atau laporan keuangan (Financial Statement) perusahaan secara otomatis.</p>
+                <div class="links-grid">
+                    <a href="https://www.idx.co.id/id/perusahaan-tercatat/laporan-keuangan-dan-tahunan/" id="link-idx" target="_blank" class="btn btn-outline external-link">
+                        <span class="icon">🏢</span>
+                        <span data-i18n="btnBeiSearch">Cari di Bursa Efek (IDX)</span>
+                    </a>
+                    <a href="https://www.google.com/" id="link-google" target="_blank" class="btn btn-outline external-link">
+                        <span class="icon">🔍</span>
+                        <span data-i18n="btnGoogleSearch">Cari Otomatis di Google</span>
+                    </a>
+                </div>
+            </div>
+
             <!-- INPUT SECTION -->
             <section id="input-section" class="card">
                 <h2 data-i18n="inputTitle">📥 Input Data Keuangan</h2>
@@ -193,7 +209,6 @@
                 <div class="card company-banner print-header" id="company-banner">
                     <div class="banner-header">
                         <h2 id="company-display" data-i18n="resultTitle">📋 Hasil Analisis</h2>
-                        <button type="button" id="btn-download" class="btn btn-primary btn-sm print-hide" onclick="window.print()"><span data-i18n="btnDownload">📥 Download PDF</span></button>
                     </div>
                 </div>
 
@@ -262,27 +277,15 @@
                     <div id="insight-list" class="insight-list"></div>
                 </div>
 
-                <!-- Link Pencarian Eksternal -->
-                <div class="card print-hide" id="links-card">
-                    <h2 data-i18n="beiTitle">🔍 Cari Laporan Keuangan</h2>
-                    <p class="section-desc" data-i18n="beiDesc">Gunakan tautan di bawah ini untuk mencari dokumen laporan tahunan (Annual Report) atau laporan keuangan (Financial Statement) perusahaan secara otomatis.</p>
-                    <div class="links-grid">
-                        <a href="#" id="link-idx" target="_blank" class="btn btn-outline external-link">
-                            <span class="icon">🏢</span>
-                            <span data-i18n="btnBeiSearch">Cari di Bursa Efek (IDX)</span>
-                        </a>
-                        <a href="#" id="link-google" target="_blank" class="btn btn-outline external-link">
-                            <span class="icon">🔍</span>
-                            <span data-i18n="btnGoogleSearch">Cari Otomatis di Google</span>
-                        </a>
-                    </div>
-                </div>
 
                 <!-- Chart -->
                 <div class="card">
                     <h2 data-i18n="chartTitle">📊 Visualisasi Arus Kas</h2>
                     <div class="chart-container">
                         <canvas id="cashflow-chart"></canvas>
+                    </div>
+                    <div style="text-align: center; margin-top: 24px;">
+                        <button type="button" id="btn-download" class="btn btn-primary btn-large print-hide" onclick="window.print()"><span data-i18n="btnDownload">📥 Download PDF</span></button>
                     </div>
                 </div>
             </section>
