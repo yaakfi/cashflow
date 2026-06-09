@@ -151,16 +151,33 @@
                 <p class="page-subtitle" data-i18n="pageAnalysisSubtitle">Masukkan data laporan arus kas perusahaan, lalu sistem akan menghitung rasio dan memberikan interpretasi otomatis.</p>
             </section>
 
+            <!-- HISTORY SECTION -->
+            <section id="history-section" class="card history-card hidden">
+                <div class="history-header">
+                    <h2 data-i18n="historyTitle">🕒 Riwayat Analisis</h2>
+                    <button type="button" id="btn-clear-history" class="btn btn-sm btn-outline-danger" data-i18n="historyClearAll">🗑 Hapus Semua Riwayat</button>
+                </div>
+                <div id="history-list" class="history-list"></div>
+                <p id="history-empty" class="history-empty" data-i18n="historyEmpty">Belum ada riwayat analisis.</p>
+            </section>
+
             <!-- INPUT SECTION -->
             <section id="input-section" class="card">
                 <h2 data-i18n="inputTitle">📥 Input Data Keuangan</h2>
                 <p class="section-desc" data-i18n="inputDesc">Masukkan data laporan arus kas perusahaan (dalam jutaan Rupiah)</p>
                 <form id="cashflow-form">
-                    <!-- Nama Perusahaan -->
-                    <div class="form-group form-group-full">
-                        <label for="company-name" data-i18n="labelCompanyName">Nama Perusahaan</label>
-                        <input type="text" id="company-name" data-i18n-placeholder="placeholderCompanyName" placeholder="Contoh: PT Indofood Sukses Makmur Tbk" required>
-                        <small data-i18n="helpCompanyName">Masukkan nama perusahaan yang akan dianalisis</small>
+                    <!-- Nama Perusahaan & Tahun -->
+                    <div class="form-grid form-grid-70-30">
+                        <div class="form-group">
+                            <label for="company-name" data-i18n="labelCompanyName">Nama Perusahaan</label>
+                            <input type="text" id="company-name" data-i18n-placeholder="placeholderCompanyName" placeholder="Contoh: PT Indofood Sukses Makmur Tbk" required>
+                            <small data-i18n="helpCompanyName">Masukkan nama perusahaan yang akan dianalisis</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="report-year" data-i18n="labelYear">Tahun Laporan</label>
+                            <input type="number" id="report-year" data-i18n-placeholder="placeholderYear" placeholder="Contoh: 2024" min="2000" max="2030" required>
+                            <small data-i18n="helpYear">Tahun laporan keuangan</small>
+                        </div>
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
@@ -195,8 +212,11 @@
             <!-- RESULTS SECTION (hidden by default) -->
             <section id="results-section" class="hidden">
                 <!-- Company Name Banner -->
-                <div class="card company-banner" id="company-banner">
-                    <h2 id="company-display" data-i18n="resultTitle">📋 Hasil Analisis</h2>
+                <div class="card company-banner print-header" id="company-banner">
+                    <div class="banner-header">
+                        <h2 id="company-display" data-i18n="resultTitle">📋 Hasil Analisis</h2>
+                        <button type="button" id="btn-download" class="btn btn-primary btn-sm print-hide" onclick="window.print()"><span data-i18n="btnDownload">📥 Download PDF</span></button>
+                    </div>
                 </div>
 
                 <!-- Rasio Keuangan -->
@@ -262,6 +282,22 @@
                         <p class="status-text" id="status-text"></p>
                     </div>
                     <div id="insight-list" class="insight-list"></div>
+                </div>
+
+                <!-- Link Pencarian Eksternal -->
+                <div class="card print-hide" id="links-card">
+                    <h2 data-i18n="beiTitle">🔍 Cari Laporan Keuangan</h2>
+                    <p class="section-desc" data-i18n="beiDesc">Gunakan tautan di bawah ini untuk mencari dokumen laporan tahunan (Annual Report) atau laporan keuangan (Financial Statement) perusahaan secara otomatis.</p>
+                    <div class="links-grid">
+                        <a href="#" id="link-idx" target="_blank" class="btn btn-outline external-link">
+                            <span class="icon">🏢</span>
+                            <span data-i18n="btnBeiSearch">Cari di Bursa Efek (IDX)</span>
+                        </a>
+                        <a href="#" id="link-google" target="_blank" class="btn btn-outline external-link">
+                            <span class="icon">🔍</span>
+                            <span data-i18n="btnGoogleSearch">Cari Otomatis di Google</span>
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Chart -->

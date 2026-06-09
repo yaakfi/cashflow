@@ -21,6 +21,100 @@ document.getElementById('btn-back').addEventListener('click', function() {
     showPage(pageLanding);
 });
 
+// ===== HISTORY (CRUD) =====
+const STORAGE_KEY = 'cashflow_history';
+
+function getHistory() {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+}
+
+function saveToHistory(data) {
+    let history = getHistory();
+    // Tambah timestamp
+    data.timestamp = new Date().toISOString();
+    // Masukkan di awal array
+    history.unshift(data);
+    // Batasi maksimal 20 history
+    if (history.length > 20) history = history.slice(0, 20);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+    renderHistory();
+}
+
+function deleteHistory(index) {
+    let history = getHistory();
+    history.splice(index, 1);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+    renderHistory();
+}
+
+function clearAllHistory() {
+    localStorage.removeItem(STORAGE_KEY);
+    renderHistory();
+}
+
+function renderHistory() {
+    const historySection = document.getElementById('history-section');
+    const historyList = document.getElementById('history-list');
+    const historyEmpty = document.getElementById('history-empty');
+    
+    const history = getHistory();
+    historyList.innerHTML = '';
+    
+    if (history.length === 0) {
+        historyEmpty.style.display = 'block';
+    } else {
+        historyEmpty.style.display = 'none';
+        
+        history.forEach(function(item, index) {
+            const date = new Date(item.timestamp).toLocaleDateString('id-ID', {
+                year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+            
+            let statusColor = item.score >= 3 ? '#10b981' : (item.score >= 2 ? '#f59e0b' : '#ef4444');
+            
+            const div = document.createElement('div');
+            div.className = 'history-item';
+            div.innerHTML = 
+                '<div class="history-info" onclick="loadFromHistory(' + index + ')">' +
+                    '<span class="history-name">' + item.companyName + ' (' + item.reportYear + ')</span>' +
+                    '<span class="history-date">' + date + '</span>' +
+                '</div>' +
+                '<div class="history-actions">' +
+                    '<span style="width:12px;height:12px;border-radius:50%;background-color:' + statusColor + '" title="Status"></span>' +
+                    '<button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteHistory(' + index + ')">' + t('historyDelete') + '</button>' +
+                '</div>';
+                
+            historyList.appendChild(div);
+        });
+    }
+    historySection.classList.remove('hidden');
+}
+
+function loadFromHistory(index) {
+    if (confirm(t('historyLoadConfirm'))) {
+        const history = getHistory();
+        const data = history[index];
+        if (data) {
+            document.getElementById('company-name').value = data.companyName;
+            document.getElementById('report-year').value = data.reportYear;
+            document.getElementById('ocf').value = data.ocf;
+            document.getElementById('icf').value = data.icf;
+            document.getElementById('fcf-input').value = data.fcfInput;
+            document.getElementById('cl').value = data.cl;
+            
+            lastAnalysis = data;
+            analyze(data.companyName, data.reportYear, data.ocf, data.icf, data.fcfInput, data.cl, false);
+        }
+    }
+}
+
+document.getElementById('btn-clear-history').addEventListener('click', function() {
+    if (confirm(t('historyClearAll') + '?')) {
+        clearAllHistory();
+    }
+});
+
+
 // ===== FORM =====
 const form = document.getElementById('cashflow-form');
 const resultsSection = document.getElementById('results-section');
@@ -30,6 +124,7 @@ let lastAnalysis = null; // simpan data analisis terakhir
 // Data contoh: PT Indofood Sukses Makmur Tbk (INDF 2024)
 document.getElementById('btn-example').addEventListener('click', function() {
     document.getElementById('company-name').value = 'PT Indofood Sukses Makmur Tbk';
+    document.getElementById('report-year').value = '2024';
     document.getElementById('ocf').value = 17507956;
     document.getElementById('icf').value = -6994964;
     document.getElementById('fcf-input').value = -680208;
@@ -48,12 +143,13 @@ document.getElementById('btn-reset').addEventListener('click', function() {
 form.addEventListener('submit', function(e) {
     e.preventDefault();
     var companyName = document.getElementById('company-name').value.trim();
+    var reportYear = document.getElementById('report-year').value;
     var ocf = parseFloat(document.getElementById('ocf').value);
     var icf = parseFloat(document.getElementById('icf').value);
     var fcfInput = parseFloat(document.getElementById('fcf-input').value);
     var cl = parseFloat(document.getElementById('cl').value);
 
-    if (!companyName) {
+    if (!companyName || !reportYear) {
         alert(t('alertCompanyName'));
         return;
     }
@@ -63,14 +159,15 @@ form.addEventListener('submit', function(e) {
     }
 
     // Simpan data untuk re-render saat ganti bahasa
-    lastAnalysis = { companyName, ocf, icf, fcfInput, cl };
-    analyze(companyName, ocf, icf, fcfInput, cl);
+    lastAnalysis = { companyName, reportYear, ocf, icf, fcfInput, cl };
+    analyze(companyName, reportYear, ocf, icf, fcfInput, cl, true);
 });
 
 // Kalau bahasa diganti & hasil analisis sedang tampil, render ulang
 window.addEventListener('languageChanged', function() {
+    renderHistory();
     if (lastAnalysis && !resultsSection.classList.contains('hidden')) {
-        analyze(lastAnalysis.companyName, lastAnalysis.ocf, lastAnalysis.icf, lastAnalysis.fcfInput, lastAnalysis.cl);
+        analyze(lastAnalysis.companyName, lastAnalysis.reportYear, lastAnalysis.ocf, lastAnalysis.icf, lastAnalysis.fcfInput, lastAnalysis.cl, false);
     }
 });
 
@@ -95,9 +192,10 @@ function getPatternInterpretation(ocf, icf, fcfInput, score) {
 }
 
 // ===== ANALISIS UTAMA =====
-function analyze(companyName, ocf, icf, fcfInput, cl) {
-    // Tampilkan nama perusahaan
-    document.getElementById('company-display').textContent = t('resultTitleWithName')(companyName);
+function analyze(companyName, reportYear, ocf, icf, fcfInput, cl, saveToHistoryFlag) {
+    // Tampilkan nama perusahaan dan tahun
+    var title = t('resultTitleWithName')(companyName + ' (' + reportYear + ')');
+    document.getElementById('company-display').textContent = title;
 
     // Hitung rasio
     var fcf = ocf - Math.abs(icf);
@@ -210,6 +308,16 @@ function analyze(companyName, ocf, icf, fcfInput, cl) {
         insightList.appendChild(div);
     });
 
+    // Link BEI
+    var query = "site:idx.co.id laporan tahunan " + companyName + " " + reportYear;
+    document.getElementById('link-google').href = "https://www.google.com/search?q=" + encodeURIComponent(query);
+    document.getElementById('link-idx').href = "https://www.idx.co.id/id/perusahaan-tercatat/laporan-keuangan-dan-tahunan/";
+
+    // History Save
+    if (saveToHistoryFlag) {
+        saveToHistory({ companyName, reportYear, ocf, icf, fcfInput, cl, score });
+    }
+
     // Chart / Grafik
     renderChart(ocf, icf, fcfInput, fcf);
 
@@ -246,7 +354,7 @@ function renderChart(ocf, icf, fcfInput, fcf) {
                     ocf >= 0 ? '#10b981' : '#ef4444',
                     icf >= 0 ? '#10b981' : '#ef4444',
                     fcfInput >= 0 ? '#10b981' : '#ef4444',
-                    fcf >= 0 ? '#3b82f6' : '#f59e0b'
+                    fcf >= 0 ? '#10b981' : '#ef4444' // Warna konsisten hijau/merah
                 ],
                 borderRadius: 8,
                 borderSkipped: false
@@ -294,4 +402,5 @@ function formatNumber(n) {
 // Inisialisasi bahasa saat halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
     setLanguage(currentLang);
+    renderHistory(); // load history UI saat start
 });

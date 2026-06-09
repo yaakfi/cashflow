@@ -49,6 +49,9 @@ const TRANSLATIONS = {
         labelCompanyName: 'Nama Perusahaan',
         placeholderCompanyName: 'Contoh: PT Indofood Sukses Makmur Tbk',
         helpCompanyName: 'Masukkan nama perusahaan yang akan dianalisis',
+        labelYear: 'Tahun Laporan',
+        placeholderYear: 'Contoh: 2024',
+        helpYear: 'Tahun laporan keuangan',
         labelOCF: 'Arus Kas Operasi (OCF)',
         placeholderOCF: 'Contoh: 17507956',
         helpOCF: 'Kas dari aktivitas utama perusahaan',
@@ -61,6 +64,13 @@ const TRANSLATIONS = {
         labelCL: 'Kewajiban Lancar',
         placeholderCL: 'Contoh: 37094061',
         helpCL: 'Total hutang jangka pendek',
+
+        // History
+        historyTitle: '🕒 Riwayat Analisis',
+        historyEmpty: 'Belum ada riwayat analisis.',
+        historyDelete: 'Hapus',
+        historyClearAll: '🗑 Hapus Semua Riwayat',
+        historyLoadConfirm: 'Muat ulang data analisis ini?',
 
         // Bagian hasil
         resultTitle: '📋 Hasil Analisis',
@@ -76,6 +86,11 @@ const TRANSLATIONS = {
         interpretationTitle: '📝 Interpretasi Pola Arus Kas',
         statusTitle: '🏢 Status Kondisi Perusahaan',
         chartTitle: '📊 Visualisasi Arus Kas',
+        btnDownload: '📥 Download PDF',
+        beiTitle: '🔍 Cari Laporan Keuangan',
+        beiDesc: 'Gunakan tautan di bawah ini untuk mencari dokumen laporan tahunan (Annual Report) atau laporan keuangan (Financial Statement) perusahaan secara otomatis.',
+        btnBeiSearch: 'Cari di Bursa Efek (IDX)',
+        btnGoogleSearch: 'Cari Otomatis di Google',
 
         // Tanda positif/negatif
         positive: '＋ Positif',
@@ -199,6 +214,9 @@ const TRANSLATIONS = {
         labelCompanyName: 'Company Name',
         placeholderCompanyName: 'Example: PT Indofood Sukses Makmur Tbk',
         helpCompanyName: 'Enter the company name to be analyzed',
+        labelYear: 'Report Year',
+        placeholderYear: 'Example: 2024',
+        helpYear: 'Financial report year',
         labelOCF: 'Operating Cash Flow (OCF)',
         placeholderOCF: 'Example: 17507956',
         helpOCF: 'Cash from the company\'s main activities',
@@ -211,6 +229,13 @@ const TRANSLATIONS = {
         labelCL: 'Current Liabilities',
         placeholderCL: 'Example: 37094061',
         helpCL: 'Total short-term liabilities',
+
+        // History
+        historyTitle: '🕒 Analysis History',
+        historyEmpty: 'No analysis history yet.',
+        historyDelete: 'Delete',
+        historyClearAll: '🗑 Clear All History',
+        historyLoadConfirm: 'Reload this analysis data?',
 
         // Results section
         resultTitle: '📋 Analysis Results',
@@ -226,6 +251,11 @@ const TRANSLATIONS = {
         interpretationTitle: '📝 Cash Flow Pattern Interpretation',
         statusTitle: '🏢 Company Condition Status',
         chartTitle: '📊 Cash Flow Visualization',
+        btnDownload: '📥 Download PDF',
+        beiTitle: '🔍 Find Financial Reports',
+        beiDesc: 'Use the links below to automatically search for the company\'s Annual Report or Financial Statement documents.',
+        btnBeiSearch: 'Search on Stock Exchange (IDX)',
+        btnGoogleSearch: 'Auto Search on Google',
 
         // Positive/negative signs
         positive: '＋ Positive',
